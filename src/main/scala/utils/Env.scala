@@ -4,7 +4,6 @@ import java.util.ResourceBundle
 
 object Env {
   private val kfCConf = ResourceBundle.getBundle("config/kf_c_conf")
-  private val kfPConf = ResourceBundle.getBundle("config/kf_p_conf")
   private val mysqlConf = ResourceBundle.getBundle("config/mysql_conf")
   private val mysqlTable = ResourceBundle.getBundle("config/mysql_table")
   private val sparkConf = ResourceBundle.getBundle("config/spark_conf")
@@ -19,13 +18,6 @@ object Env {
     val VALUE_DESERIALIZER: String = kfCConf.getString("value.deserializer")
     val TOPICS: Seq[String] = kfCConf.getString("topics").split(",").toSeq
     val PARTITION_MAX_MSG_NUM: Long = kfCConf.getString("partitionMaxMsgNum").toLong
-  }
-
-  object KafkaPConf {
-    val BOOTSTRAP: String = kfPConf.getString("bootstrap")
-    val KEY_SERIALIZER: String = kfPConf.getString("key.serializer")
-    val VALUE_SERIALIZER: String = kfPConf.getString("value.serializer")
-    val TOPICS: Seq[String] = kfPConf.getString("topics").split(",").toSeq
   }
 
   object MySQLConf {
@@ -59,8 +51,6 @@ object Env {
 
   object HBaseTable {
     val rD: String = hbaseTable.getString("raw.data")
-    val nS: String = hbaseTable.getString("namespace")
-    val sRD: String = hbaseTable.getString("structured.raw.data")
   }
 
 }

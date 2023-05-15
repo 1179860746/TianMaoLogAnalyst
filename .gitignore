@@ -8,7 +8,7 @@ src/test/
 
 ### IntelliJ IDEA ###
 .idea/
-./TianMao.iml
+
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,7 +25,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Mine ###
-other/data/unzip/
-other/data/zip/
