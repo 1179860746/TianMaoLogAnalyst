@@ -11,8 +11,8 @@
 r2上。
 两台计算机在同一网络环境下通过SSH远程通信，访问MySQl与HDFS数据。
 
-![集群](./src/main/resources/markdown/集群.png)
+![集群](./other/markdown/集群.png)
 
 ## 实时处理模块
 
-![实时数据处理模块流程图](./src/main/resources/markdown/实时数据处理模块.jpg)
+![实时数据处理模块流程图](./other/markdown/实时数据处理模块.jpg)
