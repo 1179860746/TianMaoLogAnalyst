@@ -5,10 +5,9 @@ import org.apache.kafka.common.TopicPartition
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010._
-
-import scala.collection.mutable
 object KafkaConsumerFactory {
-  private val properties: mutable.Map[String, String] = mutable.Map(
+
+  private val properties: Map[String, String] = Map(
     ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG -> Env.KafkaCConf.BOOTSTRAP,
     ConsumerConfig.GROUP_ID_CONFIG -> Env.KafkaCConf.GROUP_ID,
     ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG -> Env.KafkaCConf.KEY_DESERIALIZER,
@@ -18,7 +17,7 @@ object KafkaConsumerFactory {
 
   /**
    *
-   * @param ssc sparkStreaming环境StreamingContext
+   * @param ssc              sparkStreaming环境StreamingContext
    * @param locationStrategy 存储策略
    * @return Kafka数据流
    */

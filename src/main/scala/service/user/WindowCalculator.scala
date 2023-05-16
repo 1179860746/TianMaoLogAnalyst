@@ -1,6 +1,6 @@
 package service.user
 
-import bean.LogBean
+import bean.UserLogBean
 import org.apache.spark.streaming.Seconds
 import org.apache.spark.streaming.dstream.DStream
 import utils.{Env, Global, JDBCUtils}
@@ -42,7 +42,7 @@ object WindowCalculator {
    */
   def countActionByWindowDur
   (
-    ds: DStream[LogBean],
+    ds: DStream[UserLogBean],
     actionType: String = actionType,
     windowSize: Long = Env.SparkConf.WINDOW_SIZE,
     windowSlide: Long = Env.SparkConf.WINDOW_SLIDE
