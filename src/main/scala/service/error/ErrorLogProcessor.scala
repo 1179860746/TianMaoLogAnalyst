@@ -1,9 +1,12 @@
 package service.error
 
-import org.apache.spark.streaming.dstream.DStream
+import utils.{Env, Global, MyKafkaUtils}
 
 object ErrorLogProcessor {
+
   def process(strs: Array[String]): Unit = {
-    // TODO: Error数据处理
+    strs.foreach { str =>
+      MyKafkaUtils.send(Global.producer, Env.KafkaPConf.ERROR_TOPIC, str)
+    }
   }
 }

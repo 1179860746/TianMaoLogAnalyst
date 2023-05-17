@@ -19,13 +19,18 @@ object Env {
     val VALUE_DESERIALIZER: String = kfCConf.getString("value.deserializer")
     val TOPICS: Seq[String] = kfCConf.getString("topics").split(",").toSeq
     val PARTITION_MAX_MSG_NUM: Long = kfCConf.getString("partitionMaxMsgNum").toLong
+    val AUTO_OFFSET_RESET: String = kfPConf.getString("auto.offset.reset")
+    ,
+    val ENABLE_AUTO_COMMIT: String = kfPConf.getString("enable.auto.commit")
   }
 
   object KafkaPConf {
     val BOOTSTRAP: String = kfPConf.getString("bootstrap")
     val KEY_SERIALIZER: String = kfPConf.getString("key.serializer")
     val VALUE_SERIALIZER: String = kfPConf.getString("value.serializer")
-    val TOPICS: Seq[String] = kfPConf.getString("topics").split(",").toSeq
+    val ACK: String = kfPConf.getString("ack")
+    val ENABLE_IDEMPOTENCE: String = kfPConf.getString("enable_idempotence")
+    val ERROR_TOPIC: String = kfPConf.getString("error.topic")
   }
 
   object MySQLConf {
@@ -42,6 +47,9 @@ object Env {
     val DURATION: Long = sparkConf.getString("duration.milliseconds").toLong
     val WINDOW_SIZE: Long = sparkConf.getString("window.size").toLong
     val WINDOW_SLIDE: Long = sparkConf.getString("window.slide").toLong
+    val checkpointPath: String = sparkConf.getString("checkpoint.path")
+    val stopFlgFilePath: String = sparkConf.getString("stop.flag.file.path")
+    val hdfsURI: String = sparkConf.getString("hdfs.uri")
   }
 
   object MySQLTable {
@@ -52,8 +60,6 @@ object Env {
   }
 
   object HBaseConf {
-    val driver: String = hbaseConf.getString("driver")
-    val url: String = hbaseConf.getString("url")
     val putBatch: String = hbaseConf.getString("put.batch")
   }
 

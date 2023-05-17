@@ -32,7 +32,7 @@ object Processor extends Serializable {
   }
 
   /**
-   * 将非用户行为数据分流至其他模块
+   * 数据分流
    * 两种分流方式
    * （1）转成DStream
    * （2）转成目标数据格式，直接使用

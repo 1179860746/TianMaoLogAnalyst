@@ -1,39 +1,48 @@
 package app
 
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.spark.streaming.StreamingContextState
 import service.Processor
 import utils.Global.ssc
-import utils.{Global, HBaseUtils, KafkaConsumerFactory}
+import utils.{Env, HBaseUtils, MyKafkaUtils}
+
+import java.net.URI
 
 object Start extends App {
 
   init()
-  private val rawData = KafkaConsumerFactory.createConsumer(ssc)
+  private val rawData = MyKafkaUtils.createConsumer(ssc)
   Processor.process(rawData)
   start()
   stop()
 
   private def init(): Unit = {
-    // 添加监听器
-    // Global.ssc.addStreamingListener(new MyListener)
     HBaseUtils.init()
   }
 
   private def start(): Unit = {
-    if (ssc != null) {
-      ssc.start()
-      ssc.awaitTermination()
-    } else {
-      throw new Exception("ssc hasn't been initialized")
-    }
+    ssc.start()
   }
 
+  /**
+   * 在HDFS中./spark/TianMao下创建文件夹stopJob可停止sparkStreaming任务
+   */
   private def stop(): Unit = {
-    if (ssc != null) {
-      // 关闭HBase连接
-      HBaseUtils.close()
-      ssc.stop(stopSparkContext = true, stopGracefully = true)
-    } else {
-      throw new Exception("ssc hasn't been initialized")
-    }
+    val fileSystem = FileSystem.get(new URI(Env.SparkConf.hdfsURI), new Configuration())
+    new Thread {
+      // 保持监听
+      while (true) {
+        Thread.sleep(10000)
+        if (
+          ssc.getState() == StreamingContextState.ACTIVE
+            &&
+            fileSystem.exists(new Path(Env.SparkConf.stopFlgFilePath))
+        ) {
+          ssc.stop(stopSparkContext = true, stopGracefully = true)
+          System.exit(0)
+        }
+      }
+    }.start()
   }
 }

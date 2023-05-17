@@ -22,6 +22,7 @@ object JDBCUtils {
   // 获取MySQL连接
   def getConnection: Connection = dataSource.getConnection
 
+  /*
   def insertBatch(conn: Connection, tableName: String, values: Map[String, String]): Unit = {
     val sql = new StringBuilder("insert into " + tableName + " VALUES ")
     values.foreach(bean => {
@@ -34,6 +35,7 @@ object JDBCUtils {
     conn.commit()
     stmt.close()
   }
+   */
 
   /**
    * insert或者update
