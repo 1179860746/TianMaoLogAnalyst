@@ -2,12 +2,11 @@ package app
 
 import service.Processor
 import utils.Global.ssc
-import utils.{Global, HBaseUtils, KafkaConsumerFactory}
-
+import utils.{HBaseUtils, MyKafkaUtils}
 object Start extends App {
 
   init()
-  private val rawData = KafkaConsumerFactory.createConsumer(ssc)
+  private val rawData = MyKafkaUtils.createConsumer(ssc)
   Processor.process(rawData)
   start()
   stop()
